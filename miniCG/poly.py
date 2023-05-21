@@ -46,7 +46,7 @@ def draw(buf, pol, intst):
     
     return m 
     
-def draw_circle(center_x, center_y, radius):
+def draw_circulo(center_x, center_y, radius):
     x = 0
     y = radius
     p = 1 - radius
@@ -72,3 +72,8 @@ def draw_circle(center_x, center_y, radius):
         x += 1
 
     return points
+
+def set_circulo(m, p_sol, r, g, b):
+    for point in p_sol:
+        m = img.set_pixel(m, point[1], point[0], r, g, b)
+    return m

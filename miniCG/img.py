@@ -3,9 +3,9 @@ from miniCG import poly
 import numpy as np
 
 def create(w, h):
-    return np.zeros((h, w), np.uint8)
+    return np.zeros((h, w, 3), np.uint8)
 
-def set_pixel(img, x, y, intst):
+def set_pixel(img, x, y, r, g, b):
     if x < 0:
         x = 0
     if y < 0:
@@ -17,8 +17,7 @@ def set_pixel(img, x, y, intst):
         y = img.shape[0]-1
     
     x, y = int(round(x)), int(round(y))
-
-    img[y, x] = intst
+    img[y, x] = (b, g, r)
 
     return img
 
@@ -35,7 +34,6 @@ def get_pixel(tex, x, y):
     
     x = round(x*(tex.shape[1]-1))
     y = round(y*(tex.shape[0]-1))
-
     return tex[y][x]
 
 def strt_line(buf, xi, yi, xf, yf, intst):
@@ -225,8 +223,7 @@ def scan_line(buf, pol, tex):
                 ty = p1[3] + pc*(p2[3]-p1[3])
         
                 intst = get_pixel(tex, tx, ty)
-
-                img = set_pixel(img, xk, y, intst)
+                img = set_pixel(img, xk, y, intst[0], intst[1], intst[2])
 
     return img
 
@@ -249,7 +246,6 @@ def flood_fill(image, start_pixel, new_color):
         
         # Pinta o pixel com a nova cor
         image[row, col] = new_color
-        print(image[row, col])
         # image = set_pixel(image, row, col, new_color)
 
         # Chama a função recursivamente para os vizinhos

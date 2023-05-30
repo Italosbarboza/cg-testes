@@ -22,6 +22,9 @@ def animation():
     tex = cv2.imread("../assets/ceu.jpg")
     tex = cv2.cvtColor(tex, cv2.COLOR_BGR2RGB)
 
+    ground = cv2.imread("../assets/ground.png")
+    ground = cv2.cvtColor(ground, cv2.COLOR_BGR2RGB)
+
     bike1 = cv2.imread("../assets/bike1.png")
     bike1 = cv2.cvtColor(bike1, cv2.COLOR_BGR2RGB)
     
@@ -44,6 +47,13 @@ def animation():
     p2 = poly.insert_dot(p2, [9, 3, 1, 0])
     p2 = poly.insert_dot(p2, [9, 5, 1, 1])
     p2 = poly.insert_dot(p2, [7, 5, 0, 1])
+
+    # Create Polygon 02
+    ptt = poly.create()
+    ptt = poly.insert_dot(ptt, [1, 5, 0, 0])
+    ptt = poly.insert_dot(ptt, [10, 5, 1, 0])
+    ptt = poly.insert_dot(ptt, [10, 9, 1, 1])
+    ptt = poly.insert_dot(ptt, [1, 9, 0, 1])
 
     # Create Polygon 02
     p3 = poly.create()
@@ -72,8 +82,10 @@ def animation():
         m = img.scan_line(m, pv, tex)
     
         pv = window.map_multi(p2, j2, v2)
+        pvt = window.map_multi(ptt, j2, v2)
 
         m = img.scan_line(m, pv, bike)
+        m = img.scan_line(m, pvt, ground)
 
         pv = window.map_multi(p3, j2, v2)
 
@@ -88,6 +100,9 @@ def animation():
         m = poly.set_circulo(m, p_sol, 244, 158, 18)
 
         m = poly.fill_circle(m, 440, 40, 20, (255, 192, 0), (255, 192, 0))
+
+        m = img.scan_line(m, ptt, press)
+
 
         cv2.imshow("Animation", m)
 

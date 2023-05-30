@@ -18,14 +18,13 @@ def opening():
     image = img.create(width, height)
 
     # Create Polygon 01
-    ptt = poly.create()
-    ptt = poly.insert_dot(ptt, [380, 200, 0, 0])
-    ptt = poly.insert_dot(ptt, [440, 200, 1, 0])
-    ptt = poly.insert_dot(ptt, [410, 220, 1, 1])
-    ptt = poly.insert_dot(ptt, [440, 240, 0, 1])
-    ptt = poly.insert_dot(ptt, [380, 240, 0, 1])
-    ptt = poly.insert_dot(ptt, [410, 220, 1, 1])
-
+    ptt = poly.createObj()
+    ptt = poly.insert_dot_rgb(ptt, [380, 200, [150, 23, 0]])
+    ptt = poly.insert_dot_rgb(ptt, [440, 200, [115, 54, 0]])
+    ptt = poly.insert_dot_rgb(ptt, [410, 220, [130, 0, 65]])
+    ptt = poly.insert_dot_rgb(ptt, [440, 240, [220, 43, 0]])
+    ptt = poly.insert_dot_rgb(ptt, [380, 240, [255, 0, 54]])
+    ptt = poly.insert_dot_rgb(ptt, [410, 220, [255, 32, 0]])
 
     # Coordenadas da primeira reta (acima)
     x1 = 0
@@ -116,7 +115,7 @@ def opening():
         # Aplica o preenchimento com textura no polígono
         animated_image = img.scan_line(animated_image, p1, tex)
 
-        animated_image = poly.draw(animated_image, ptt, 178)
+        animated_image = img.scan_line_rgb(animated_image, ptt)
         
         # Exibe a imagem animada com o polígono texturizado
         cv2.imshow("Animation", animated_image)

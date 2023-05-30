@@ -1,24 +1,15 @@
-# mini-MarioWorld
-A CG Discipline's project. Coded in Python with OpenCV and Numpy.
+# Computação Gráfica I – Primeira Avaliação
+Uma animação feita em Python para a primeira avaliação utilizando funções primitivas. Somente utilizando duas libs externas, 
+são elas Numpy e OpenCV.
 
-### Dependencies
-- Python >= 3.11
+### Dependências
+  - Python3
   - OpenCV
   - Numpy
 
-### Installation
-The follow commands must be executed on the project's root directory.
-1. It's strongly recommended to create a [virtualenv](https://docs.python.org/3/library/venv.html) to run this project. To consider the `.gitignore` file, we recommend name it `mini-mario`. To do it, execute:
-    > python -m venv _mini-mario_
+### Rodando o Projeto
+1. Faça um clone no repositório
 
-2. Now, with [pip](https://pypi.org/project/pip/) package manager, execute to install the dependencies:
-    > pip install -r _requirements.txt_
-### Tests
-Execute the animations algorithms on `tests/` directory with follow the commands:
->python _<span>animation.py</span>_
+2. Entre na pasta application
 
->python _<span>animation_with_window.py</span>_
-
->python _<span>animation_with_multi_window.py</span>_
-
-**Note:** Press the `Esc` key to end.
+3. Utilize o comando: python3 main.py

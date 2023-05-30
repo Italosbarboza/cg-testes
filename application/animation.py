@@ -52,8 +52,8 @@ def animation():
     ptt = poly.create()
     ptt = poly.insert_dot(ptt, [1, 5, 0, 0])
     ptt = poly.insert_dot(ptt, [10, 5, 1, 0])
-    ptt = poly.insert_dot(ptt, [10, 9, 1, 1])
-    ptt = poly.insert_dot(ptt, [1, 9, 0, 1])
+    ptt = poly.insert_dot(ptt, [10, 10, 1, 1])
+    ptt = poly.insert_dot(ptt, [1, 10, 0, 1])
 
     # Create Polygon 02
     p3 = poly.create()

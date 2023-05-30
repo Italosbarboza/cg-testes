@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from miniCG import poly
+from primitiveFunctions import poly
 
 def create():
     return np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], np.float32)

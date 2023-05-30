@@ -2,7 +2,7 @@ import sys
 import cv2
 import numpy as np
 sys.path.append('..')
-from miniCG import img, poly, transform, window, clipping
+from primitiveFunctions import img, poly, transform, window, clipping
 import time
 # bgr
 def animation(): 

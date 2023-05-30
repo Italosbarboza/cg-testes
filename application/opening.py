@@ -2,7 +2,7 @@ import sys
 import cv2
 import numpy as np
 sys.path.append('..')
-from miniCG import img, poly
+from primitiveFunctions import img, poly
 import time
 
 def opening():   

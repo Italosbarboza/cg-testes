@@ -1,5 +1,5 @@
 import math
-from miniCG import poly
+from primitiveFunctions import poly
 import numpy as np
 
 def create(w, h):
@@ -75,12 +75,12 @@ def strt_line_dda(buf, xi, yi, xf, yf, intst):
     dx = xf-xi
     dy = yf-yi
 
-    steps = abs(dx);
+    steps = abs(dx)
     if (abs(dy) > abs(dx)):
         steps = abs(dy)
 
     if (steps == 0):
-        img = set_pixel(img, xi, yi, intst)
+        img = set_pixel(img, xi, yi, intst[0], intst[1], intst[2])
         return img
 
     steps_x = dx/steps
@@ -90,62 +90,8 @@ def strt_line_dda(buf, xi, yi, xf, yf, intst):
         x = round(xi + i*steps_x)
         y = round(yi + i*steps_y)
 
-        img = set_pixel(img, x, y, intst)
+        img = set_pixel(img, x, y, intst[0], intst[1], intst[2])
 
-    return img
-
-def bresenham(buf, xi, yi, xf, yf, intst):
-    img = buf
-
-    dx = xf-xi
-    dy = yf-yi
-
-    dx2 = 2*dx
-    dy2 = 2*dy
-
-    p = -dx + dy2
-    x = round(xi)
-    y = round(yi)
-
-    for i in range(0, abs(dx)):
-        img = set_pixel(img, x, y, intst)
-
-        x = x+1
-        if (p >= 0):
-            y += 1
-
-            p = p-dx2+dy2
-        else:
-            p += dy2
-    
-    return img
-
-def bresenham_circle(buf, xi, yi, xf, yf, intst):
-    img = buf
-    r = math.sqrt(math.pow((xf-xi), 2)-math.pow((yf-yi), 2))
-    c = 2*math.pi*r
-
-    dx = xf-xi
-    dy = yf-yi
-
-    dx2 = 2*dx
-    dy2 = 2*dy
-
-    p = math.sqrt(math.pow(r, 2)-math.pow(x, 2))
-    x = 0
-    y = round(r)
-
-    for i in range(0, abs(c/8)):
-        img = set_pixel(img, x, y, intst)
-
-        x = x+1
-        if (p >= 0):
-            y += 1
-
-            p = p-math.sqrt(math.pow(r, 2)-math.pow(x, 2))
-        else:
-            p += dy2
-    
     return img
 
 def strt_line_ddaaa(buf, xi, yi, xf, yf, intst):
@@ -299,17 +245,13 @@ def flood_fill(image, start_pixel, new_color):
         if not is_valid_position(row, col) or not np.array_equal(image[row, col], original_color):
             return
         
-        # Pinta o pixel com a nova cor
         image[row, col] = new_color
-        # image = set_pixel(image, row, col, new_color)
 
-        # Chama a função recursivamente para os vizinhos
-        fill(row - 1, col)  # Vizinho superior
-        fill(row + 1, col)  # Vizinho inferior
-        fill(row, col - 1)  # Vizinho esquerdo
-        fill(row, col + 1)  # Vizinho direito
+        fill(row - 1, col)  
+        fill(row + 1, col)  
+        fill(row, col - 1)  
+        fill(row, col + 1)  
     
-    # Chama a função de preenchimento
     fill(start_pixel[0], start_pixel[1])
     
     return image
@@ -354,9 +296,6 @@ def scan_line_rgb(buf, pol):
             x_p1 = abs(int(p1[0]))
             x_p2 = abs(int(p2[0]))
             for xk in range(x_p1, x_p2):
-                intst = poly.color_intersec(p1, p2, xk, x_p1)
-                
-                #intst = (intst[0], intst[1], intst[2])
+                intst = poly.color_intersec(p1, p2, xk, x_p1)                
                 img = set_pixel_color(img, xk, y, intst)
-
     return img

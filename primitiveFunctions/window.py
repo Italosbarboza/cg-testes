@@ -1,5 +1,5 @@
 import numpy as np
-from miniCG import transform
+from primitiveFunctions import transform
 
 def map_multi(p, j, v):
     xiv = v[0]

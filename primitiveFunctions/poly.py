@@ -1,4 +1,4 @@
-from miniCG import img
+from primitiveFunctions import img
 import numpy as np
 import math
 

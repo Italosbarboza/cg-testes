@@ -4,12 +4,12 @@ import numpy as np
 sys.path.append('..')
 from miniCG import img, poly, transform, window
 import time
-
+# bgr
 def animation(): 
 
     # Image shape
-    h = 500
-    w = 500
+    h = 600
+    w = 800
      
     # Viewport and Window 01
     v1 = np.array([0, 0, w, h/2], np.float32)
@@ -21,12 +21,16 @@ def animation():
     
     # Load texture
     tex = cv2.imread("../assets/cat.jpg")
+    tex = cv2.cvtColor(tex, cv2.COLOR_BGR2RGB)
+
     
     # Load texture
     bike1 = cv2.imread("../assets/bike1.png")
+    bike1 = cv2.cvtColor(bike1, cv2.COLOR_BGR2RGB)
     
     # Load bike1ture
     bike2 = cv2.imread("../assets/bike2.png")
+    bike2 = cv2.cvtColor(bike2, cv2.COLOR_BGR2RGB)
     
     # Create Polygon 01
     p1 = poly.create()

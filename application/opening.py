@@ -1,11 +1,11 @@
-import sys
-import cv2
 import numpy as np
+import cv2
+import sys
 sys.path.append('..')
 from primitiveFunctions import img, poly
 import time
 
-def opening():   
+def opening():
     # Dimensões da imagem
     width = 800
     height = 600
@@ -17,15 +17,6 @@ def opening():
     # Cria a imagem
     image = img.create(width, height)
 
-    # Create Polygon 01
-    ptt = poly.createObj()
-    ptt = poly.insert_dot_rgb(ptt, [380, 200, [150, 23, 0]])
-    ptt = poly.insert_dot_rgb(ptt, [440, 200, [115, 54, 0]])
-    ptt = poly.insert_dot_rgb(ptt, [410, 220, [130, 0, 65]])
-    ptt = poly.insert_dot_rgb(ptt, [440, 240, [220, 43, 0]])
-    ptt = poly.insert_dot_rgb(ptt, [380, 240, [255, 0, 54]])
-    ptt = poly.insert_dot_rgb(ptt, [410, 220, [255, 32, 0]])
-
     # Coordenadas da primeira reta (acima)
     x1 = 0
     y1 = 50
@@ -35,9 +26,9 @@ def opening():
 
     # Coordenadas da segunda reta (abaixo)
     x3 = width - 1
-    y3 = 550
+    y3 = 755
     x4 = width - 1
-    y4 = 550
+    y4 = 755
     intensity2 = (0, 0, 255)  # Cor em RGB (azul)
 
     # Cria os círculos
@@ -76,7 +67,8 @@ def opening():
     # Loop para criar a animação
     while x2 < width and x3 >= 0:
         # Atualiza as coordenadas das retas
-        x2 += pixel_step  # Aumenta x2 da esquerda para a direita
+        
+        x2 += pixel_step -50  # Aumenta x2 da esquerda para a direita
         x3 -= pixel_step  # Diminui x3 da direita para a esquerda
         
         # Atualiza as coordenadas dos círculos na coordenada y
@@ -89,6 +81,7 @@ def opening():
         # Adiciona as retas à imagem animada
         animated_image = img.strt_line(animated_image, x1, y1, x2, y2, intensity)
         animated_image = img.strt_line(animated_image, x3, y3, x4, y4, intensity2)
+
         
         # Cria os círculos
         circle1_points = poly.draw_circulo(circle1_center_x, circle1_center_y, circle1_radius)
@@ -114,8 +107,6 @@ def opening():
         animated_image = poly.set_elipse(animated_image, ellipse2_points, 255, 0, 255)  # Cor magenta   
         # Aplica o preenchimento com textura no polígono
         animated_image = img.scan_line(animated_image, p1, tex)
-
-        animated_image = img.scan_line_rgb(animated_image, ptt)
         
         # Exibe a imagem animada com o polígono texturizado
         cv2.imshow("Animation", animated_image)

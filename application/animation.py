@@ -19,20 +19,30 @@ def animation():
     v2 = np.array([0, h/2 + 1, w - 1, h - 1], np.float32)
     j2 = np.array([1, 1, 10, 10], np.float32)
     
-    tex = cv2.imread("../assets/ceu.jpg")
+    tex = cv2.imread("../assets/fundo-t.jpg")
     tex = cv2.cvtColor(tex, cv2.COLOR_BGR2RGB)
 
     ground = cv2.imread("../assets/ground.png")
     ground = cv2.cvtColor(ground, cv2.COLOR_BGR2RGB)
 
-    bike1 = cv2.imread("../assets/bike1.png")
+    bike1 = cv2.imread("../assets/bike001.png", cv2.IMREAD_UNCHANGED)
     bike1 = cv2.cvtColor(bike1, cv2.COLOR_BGR2RGB)
     
-    bike2 = cv2.imread("../assets/bike2.png")
+    bike2 = cv2.imread("../assets/bike002.png", cv2.IMREAD_UNCHANGED)
     bike2 = cv2.cvtColor(bike2, cv2.COLOR_BGR2RGB)
 
     press = cv2.imread("../assets/esc.png")
     press = cv2.cvtColor(press, cv2.COLOR_BGR2RGB)
+
+    fundo = cv2.imread("../assets/fundo-t.jpg")
+    fundo = cv2.cvtColor(fundo, cv2.COLOR_BGR2RGB)
+
+    # Create Polygon 01
+    pf = poly.create()
+    pf = poly.insert_dot(pf, [0, 0, 0, 0])
+    pf = poly.insert_dot(pf, [800, 0, 1, 0])
+    pf = poly.insert_dot(pf, [800, 599, 1, 1])
+    pf = poly.insert_dot(pf, [0, 599, 0, 1])
     
     # Create Polygon 01
     p1 = poly.create()
@@ -44,8 +54,8 @@ def animation():
     # Create Polygon 02
     p2 = poly.create()
     p2 = poly.insert_dot(p2, [7, 3, 0, 0])
-    p2 = poly.insert_dot(p2, [9, 3, 1, 0])
-    p2 = poly.insert_dot(p2, [9, 5, 1, 1])
+    p2 = poly.insert_dot(p2, [8, 3, 1, 0])
+    p2 = poly.insert_dot(p2, [8, 5, 1, 1])
     p2 = poly.insert_dot(p2, [7, 5, 0, 1])
 
     # Create Polygon 02
@@ -58,15 +68,15 @@ def animation():
     # Create Polygon 02
     p3 = poly.create()
     p3 = poly.insert_dot(p3, [7, 8, 0, 1])
-    p3 = poly.insert_dot(p3, [9, 8, 1, 1])
-    p3 = poly.insert_dot(p3, [9, 6, 1, 0])
-    p3 = poly.insert_dot(p3, [7, 6, 0, 0])
+    p3 = poly.insert_dot(p3, [8, 8, 1, 1])
+    p3 = poly.insert_dot(p3, [8, 7, 1, 0])
+    p3 = poly.insert_dot(p3, [7, 7, 0, 0])
     
     p_sol = poly.draw_circulo(40, 440, 20)
     
     
     m_t_b = transform.create()
-    m_t_b = transform.translation(m_t_b, -1, 0)
+    m_t_b = transform.translation(m_t_b, -0.5, 0)
     
     # Animation loop
     # Press Esc to end animation
@@ -76,10 +86,10 @@ def animation():
     control2 = 0
     while(k != 27):
         m = img.create(w, h)
+
+        m = img.scan_line(m, pf, fundo)
         
         pv = window.map_multi(p1, j1, v1)
-
-        m = img.scan_line(m, pv, tex)
     
         pv = window.map_multi(p2, j2, v2)
         pvt = window.map_multi(ptt, j2, v2)
@@ -94,22 +104,18 @@ def animation():
         control2 = control2 + 1
         
         if (control2 >= 6):
-            # Do Scanline
             m = img.scan_line(m, pv, press)
     
         m = poly.set_circulo(m, p_sol, 244, 158, 18)
 
-        m = poly.fill_circle(m, 440, 40, 20, (255, 192, 0), (255, 192, 0))
-
-        m = img.scan_line(m, ptt, press)
-
+        m = poly.fill_circle(m, 440, 40, 20, (212,222,225), (212,222,225))
 
         cv2.imshow("Animation", m)
 
         p2 = transform.apply(p2, m_t_b)
         
         k = cv2.waitKey(10)
-        time.sleep(2)
+        time.sleep(0.4)
     
         if (control == 0):
             bike = bike2
